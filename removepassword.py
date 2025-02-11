@@ -68,6 +68,10 @@ src_file_path = os.environ.get('DOCUMENT_WORKING_PATH')
 pass_file_path = "/usr/src/paperless/scripts/passwords.txt"
 consume_path = "/usr/src/paperless/consume/"
 
+# Script execution
+task_id = os.environ.get('TASK_ID')
+print(f"Kicking off pre-consumption script for task {task_id}")
+
 if src_file_path is None:
     print("No file path available in environment variable 'DOCUMENT_WORKING_PATH'")
     exit(0)
