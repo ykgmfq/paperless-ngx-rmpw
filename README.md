@@ -3,7 +3,7 @@ Python script to remove passwords from PDFs
 
 Original script:
 
-https://piep.tech/posts/automatic-password-removal-in-paperless-ngx/
+https://web.archive.org/web/20240913172430/https://piep.tech/posts/automatic-password-removal-in-paperless-ngx/
 
 Initial author:
 * https://github.com/RobertWalther
