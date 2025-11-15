@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paperless-ngx-rmpw"
+version = "0.1.0"
+description = "Python script to remove passwords from PDFs and extract attachments"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "CC BY 4.0"}
+authors = [
+    {name = "RobertWalther", url = "https://github.com/RobertWalther"},
+]
+contributors = [
+    {name = "daddy32", url = "https://github.com/daddy32"},
+    {name = "lukasz-lobocki", url = "https://github.com/lukasz-lobocki"},
+    {name = "techdude-777", url = "https://github.com/techdude-777"},
+    {name = "hopsor", url = "https://github.com/hopsor"},
+]
+keywords = ["pdf", "password-removal", "paperless", "attachment-extraction"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: CC BY 4.0",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business",
+]
+dependencies = [
+    "pikepdf>=7.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ykgmfq/paperless-ngx-rmpw"
+Repository = "https://github.com/ykgmfq/paperless-ngx-rmpw.git"
+Issues = "https://github.com/ykgmfq/paperless-ngx-rmpw/issues"
+
+[project.scripts]
+removepassword = "removepassword:main"
+
+[tool.setuptools]
+packages = ["removepassword"]
