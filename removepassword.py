@@ -171,39 +171,45 @@ def get_passwords(file: Path) -> list[str]:
     """
     passwords = (p.strip() for p in file.read_text().splitlines())
     passwords = [p for p in passwords if len(p) > 0]
-    print(f"Trying {len(passwords)} from {password_file_path}")
+    print(f"Trying {len(passwords)} from {file}")
     return passwords
 
 
-# Variable definition
-# You may want to adjust the paths to your needs
-args = parse_arguments()
+def main():
+    """
+    Main entry point for the script.
+    """
+    args = parse_arguments()
 
-src_file_path = None
-src = os.environ.get("DOCUMENT_WORKING_PATH")
-if src:
-    src_file_path = Path(src)
-elif args.file_or_dir:
-    src_file_path = Path(args.file_or_dir)
+    src_file_path = None
+    src = os.environ.get("DOCUMENT_WORKING_PATH")
+    if src:
+        src_file_path = Path(src)
+    elif args.file_or_dir:
+        src_file_path = Path(args.file_or_dir)
 
-password_file_path = args.passwords
-paperless_consume_path = args.consume
+    password_file_path = args.passwords
+    paperless_consume_path = args.consume
 
-task_id = os.environ.get("TASK_ID")
-if task_id is not None:
-    print(f"Kicking off pre-consumption script for task {task_id}")
+    task_id = os.environ.get("TASK_ID")
+    if task_id is not None:
+        print(f"Kicking off pre-consumption script for task {task_id}")
 
-if src_file_path is None:
-    print("No file or directory path provided.")
-    exit(1)
-passwords = get_passwords(password_file_path)
-if src_file_path.is_file():
-    process_pdf_file(src_file_path, passwords, paperless_consume_path)
-elif src_file_path.is_dir():
-    print(f"Processing directory: {src_file_path}")
-    for pdf_file in src_file_path.glob("*.pdf"):
-        print(f"\nProcessing: {pdf_file}")
-        process_pdf_file(pdf_file, passwords, paperless_consume_path)
-else:
-    print(f"Path {src_file_path} is neither a file nor a directory")
-    exit(1)
+    if src_file_path is None:
+        print("No file or directory path provided.")
+        exit(1)
+    passwords = get_passwords(password_file_path)
+    if src_file_path.is_file():
+        process_pdf_file(src_file_path, passwords, paperless_consume_path)
+    elif src_file_path.is_dir():
+        print(f"Processing directory: {src_file_path}")
+        for pdf_file in src_file_path.glob("*.pdf"):
+            print(f"\nProcessing: {pdf_file}")
+            process_pdf_file(pdf_file, passwords, paperless_consume_path)
+    else:
+        print(f"Path {src_file_path} is neither a file nor a directory")
+        exit(1)
+
+
+if __name__ == "__main__":
+    main()
