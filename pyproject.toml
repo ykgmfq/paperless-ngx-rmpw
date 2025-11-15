@@ -39,4 +39,4 @@ Issues = "https://github.com/ykgmfq/paperless-ngx-rmpw/issues"
 removepassword = "removepassword:main"
 
 [tool.setuptools]
-packages = ["removepassword"]
+py-modules = ["removepassword"]
