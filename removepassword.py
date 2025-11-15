@@ -62,13 +62,17 @@ def extract_pdf_attachments(file_path: Path, consume_path: Path):
     with pikepdf.open(file_path) as pdf:
         ats = pdf.attachments
         for atm in ats:
-            trg_filename = ats.get(atm).filename
-            if is_pdf(Path(trg_filename)):
+            spec = ats.get(atm)
+            if spec is None:
+                print(f"Attachment {atm} could not be retrieved, skipping")
+                continue
+            trg_filename = Path(spec.filename)
+            if is_pdf(trg_filename):
                 trg_file_path = consume_path / trg_filename
                 try:
                     with trg_file_path.open("wb") as wb:
-                        wb.write(ats.get(atm).obj["/EF"]["/F"].read_bytes())
-                        print(f"Attachment {trg_file_path} saved")
+                        wb.write(spec.obj["/EF"]["/F"].read_bytes())
+                    print(f"Attachment {trg_file_path} saved")
                 except Exception as e:
                     print(f"Error while writing attachment {trg_file_path}: {e}")
                     continue
